@@ -1,28 +1,21 @@
-# start with docker-compose -f tokentransfer.yml up -d
-
-version: '3'
-
-services:
-
-  checkersa:
-    container_name: checkersa
-    image: "checkersa"
-    ports:
-      - "26657:26657"
-      - "1317:1317"
-      - "4500:4500"
-    networks:
-      - tokendemo
-
-  checkersb:
-    container_name: checkersb
-    image: "checkersb"
-    ports:
-      - "26658:26657"
-      - "1318:26657"
-      - "4501:26657"
-    networks:
-      - tokendemo
-
-networks:
-    tokendemo:
+version: 1
+accounts:
+- name: alice
+  coins:
+  - 20000token
+  - 200000000stake
+- name: bob
+  coins:
+  - 10000token
+  - 100000000stake
+client:
+  openapi:
+    path: docs/static/openapi.yml
+faucet:
+  name: bob
+  coins:
+  - 5token
+  - 100000stake
+validators:
+- name: alice
+  bonded: 100000000stake
